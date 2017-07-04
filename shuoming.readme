@@ -1,1 +1,6 @@
-shuoming.readme
+themes/shapely/woocommerce.php
+
+改
+<div id="primary" class="col-md-8 mb-xs-24">
+成
+<div id="primary" class="col-md-8 mb-xs-24">
