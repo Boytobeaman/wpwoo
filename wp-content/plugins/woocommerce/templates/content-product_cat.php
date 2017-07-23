@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<li <?php wc_product_cat_class( '', $category ); ?>>
+<div <?php wc_product_cat_class( '', $category ); ?>>
 	<?php
 	/**
 	 * woocommerce_before_subcategory hook.
@@ -28,6 +28,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @hooked woocommerce_template_loop_category_link_open - 10
 	 */
 	do_action( 'woocommerce_before_subcategory', $category );
+	
+	do_action( 'woocommerce_shop_loop_product_attr', $category );
 
 	/**
 	 * woocommerce_before_subcategory_title hook.
@@ -54,4 +56,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @hooked woocommerce_template_loop_category_link_close - 10
 	 */
 	do_action( 'woocommerce_after_subcategory', $category ); ?>
-</li>
+</div>

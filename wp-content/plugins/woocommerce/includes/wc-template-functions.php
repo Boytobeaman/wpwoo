@@ -637,17 +637,82 @@ if ( ! function_exists( 'woocommerce_template_loop_category_title' ) ) {
 		<?php
 	}
 }
+
+
+if ( ! function_exists( 'woocommerce_template_loop_product_attr' ) ) {
+
+	/**
+	 * Show the product title in the product loop. By default this is an H2.
+	 */
+	function woocommerce_template_loop_product_attr() {
+		$productlenght = get_field('productlenght');
+		$productwidth = get_field('productwidth');
+		$productheight = get_field('productheight');
+		$productinnerlength = get_field('productinnerlength');
+		$productinnerwidth = get_field('productinnerwidth');
+		$productinnerheight = get_field('productinnerheight');
+		$productweight = get_field('productweight');
+		$productvolumn = get_field('productvolumn');
+		$productmodel = get_field('productmodel');
+		$mmtoinch = 0.03937;
+		$kgtolbs = 2.20462262;
+		$ltogal = 0.26417;
+		
+		if (!$productmodel) {
+		    $productmodel = "N/A";
+		}
+
+		
+
+		echo '	<div class="product-right"> 
+					<div class="row no-gutters"> 
+						<div class="product-name">
+							<div class="col-sm-12">
+								<h2 class="product-title pl-1">'. get_the_title() .'</h2>
+								<span class="btn btn-danger pull-right product-cat-inquiry">Inquiry</span>
+								<span class="btn btn-info pull-right product-model mr-1">'. $productmodel .'</span>
+							</div>
+						</div>
+						<div class="product-attributes">
+							<div class="col-sm-3 col-xs-6 br-2-white external-dimension">
+								<div class="table-head bb-2-white">External Dimensions</div>
+								<div class="product-val-mm"><span class="value">' .$productlenght .'X'. $productwidth  .'X'. $productheight . '</span> <span class="pull-right">mm</span></div>
+								<div class="product-val-inch"><span class="value"> '. round($productlenght*$mmtoinch,2) .'X'.round($productwidth*$mmtoinch,2) .'X'. round($productheight*$mmtoinch,2) .'</span> <span class="pull-right">in</span></div>
+							</div>
+							<div class="col-sm-3 col-xs-6 br-2-white internal-dimension hidden-xs">
+								<div class="table-head bb-2-white">Internal Dimensions</div>
+								<div class="product-val-mm"><span class="value">'. $productinnerlength .'X'. $productinnerwidth .'X'. $productinnerheight .'</span> <span class="pull-right">mm</span></div>
+								<div class="product-val-inch"><span class="value">'. round($productinnerlength*$mmtoinch,2) .'X'. round($productinnerwidth*$mmtoinch,2) .'X'. round($productinnerheight*$mmtoinch,2) .'</span> <span class="pull-right">in</span></div>
+							</div>
+							<div class="col-sm-3 col-xs-6 br-2-white weight hidden-xs">
+								<div class="table-head bb-2-white">Weight</div>
+								<div class="product-val-mm"><span class="value">'. $productweight . '</span> <span class="pull-right">kg</span></div>
+								<div class="product-val-inch"><span class="value">'. round($productweight*$kgtolbs,2) .'</span> <span class="pull-right">lbs</span></div>
+							</div>
+							<div class="col-sm-3 col-xs-6 volumn">
+								<div class="table-head bb-2-white">Volume</div>
+								<div class="product-val-mm"><span class="value">'. $productvolumn . '</span> <span class="pull-right">Liters</span></div>
+								<div class="product-val-inch"><span class="value">'. round($productvolumn*$ltogal,2) .'</span> <span class="pull-right">Us gallon</span></div>
+							</div>
+						</div>
+					</div>
+				</div>';
+	}
+}
+
+
+
 /**
  * Insert the opening anchor tag for products in the loop.
  */
 function woocommerce_template_loop_product_link_open() {
-	echo '<a href="' . get_the_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">';
+	echo '<a href="' . get_the_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"><div class="product-wrap">';
 }
 /**
  * Insert the opening anchor tag for products in the loop.
  */
 function woocommerce_template_loop_product_link_close() {
-	echo '</a>';
+	echo '</div></a>';
 }
 
 /**
@@ -742,7 +807,7 @@ if ( ! function_exists( 'woocommerce_template_loop_product_thumbnail' ) ) {
 	 * @subpackage	Loop
 	 */
 	function woocommerce_template_loop_product_thumbnail() {
-		echo woocommerce_get_product_thumbnail();
+		echo '<div class="product-img-wrap br-2-white">'. woocommerce_get_product_thumbnail() .'</div>';
 	}
 }
 if ( ! function_exists( 'woocommerce_template_loop_price' ) ) {
@@ -906,6 +971,19 @@ if ( ! function_exists( 'woocommerce_template_single_title' ) ) {
 		wc_get_template( 'single-product/title.php' );
 	}
 }
+
+if ( ! function_exists( 'woocommerce_template_custom_attr' ) ) {
+
+	/**
+	 * Output the product title.
+	 *
+	 * @subpackage	Product
+	 */
+	function woocommerce_template_custom_attr() {
+		wc_get_template( 'single-product/custom-attr.php' );
+	}
+}
+
 if ( ! function_exists( 'woocommerce_template_single_rating' ) ) {
 
 	/**
